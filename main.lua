@@ -21,11 +21,13 @@ local bricksl1 = {}
 local bricksl2 = {}
 local bricksl3 = {}
 
+local count1 = 5
+
 PADDLE_SPEED = 200
 
 function love.load()
 
-for i = 1,5
+for i = 1,count1
 do 
 if i > 1 then
   lastWidth = bricksl1[i-1].x + 60
@@ -73,9 +75,11 @@ end
 
 function love.update(dt)
 
-for i = 1,5 do
+for i = 1,count1 do
  if bricksl1[i]:collides(ball) then
-   love.graphics.print("Collide")
+    if count1 >= 1 then
+   count1 = count1 - 1
+end
    
    ball.dy = ball.dy
             ball.y = bricksl1[i].y+bricksl1[i].height
@@ -139,6 +143,12 @@ else
 	 player.dx = 0
 end
 
+for j, brick in pairs(bricksl1) do
+           if brick.isCollide == true then
+        table.remove(bricksl1, j)
+    end
+end
+
  ball:update(dt)
 	player:update(dt)
 end
@@ -147,10 +157,12 @@ function love.draw()
 push:start()
 love.graphics.draw(background, 0, 0)
 	    love.graphics.printf('Hello Start State!', 0, 20, VIRTUAL_WIDTH, 'center')
+
+
          for k, brick in pairs(bricksl1) do
-           if brick.isCollide == false then
+ 
         brick:render()
-        end
+       
         
     end
 	    player:render()
