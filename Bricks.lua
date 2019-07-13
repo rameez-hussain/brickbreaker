@@ -20,12 +20,10 @@ function Bricks:collides(ball)
     if self.y > ball.y + ball.height or ball.y > self.y + self.height then
         return false
     end 
-
-    -- if the above aren't true, they're overlapping
-    self.isCollide = true
+    
+        self.isCollide = true
     return true
 end
-
 
 function Bricks:update(dt)
    
